@@ -1,0 +1,31 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: busyboxjob
+  labels:
+    {{- include "myweb.labels" . | nindent 4 }}
+
+spec:
+  #replicas: {{ .Values.replicaCount }}
+
+  completions: 1
+  template:
+    metadata:
+      name: busybox
+    spec:
+      containers:
+      - name: busybox
+        image: busybox
+        command: ["echo", "hello"]
+      restartPolicy: OnFailure
+      volumes:
+      - name: myweb-data
+        emptyDir: {}
+      - name: myweb-data2
+        emptyDir: {}
+      - name: myweb-data3
+        emptyDir: {}
+      - name: myweb-data4
+        emptyDir: {}
+      - name: myweb-data5
+        emptyDir: {}
